@@ -265,6 +265,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+__WEBPACK_IMPORTED_MODULE_0_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_1_mint_ui__["InfiniteScroll"]);
 __WEBPACK_IMPORTED_MODULE_0_vue__["default"].component(__WEBPACK_IMPORTED_MODULE_1_mint_ui__["Loadmore"].name, __WEBPACK_IMPORTED_MODULE_1_mint_ui__["Loadmore"]);
 
 
@@ -378,17 +380,18 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].component(__WEBPACK_IMPORTED_MODULE
         self.$refs.loadmore.onTopLoaded();
       }, 500);
     },
-    loadBottom: function loadBottom() {
+
+    loadMore: function loadMore() {
       var self = this;
+      self.loading = true;
       setTimeout(function () {
-        var i = 0,
-            len = self.it3.length;
-        for (; i < len; i++) {
+        for (var i = 0; i < self.it3.length; i++) {
           self.items.push(self.it3[i]);
         }
-        self.$refs.loadmore.onBottomLoaded();
+        self.loading = false;
       }, 500);
     },
+
     handleTopChange: function handleTopChange(status) {
       this.topStatus = status;
     },
@@ -1122,12 +1125,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "wrap"
   }, [_c('mt-loadmore', {
+    directives: [{
+      name: "infinite-scroll",
+      rawName: "v-infinite-scroll",
+      value: (_vm.loadMore),
+      expression: "loadMore"
+    }],
     ref: "loadmore",
     attrs: {
       "top-method": _vm.loadTop,
-      "bottom-method": _vm.loadBottom,
       "bottom-all-loaded": _vm.allLoaded,
-      "max-distance": 150
+      "max-distance": 350,
+      "infinite-scroll-disabled": "loading",
+      "infinite-scroll-distance": "10"
     },
     on: {
       "top-status-change": _vm.handleTopChange
@@ -1145,7 +1155,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'rotate': _vm.topStatus === 'drop'
     }
-  }, [_vm._v("↓")]), _vm._v(" "), _c('span', {
+  }), _vm._v(" "), _c('span', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -1231,20 +1241,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         key: it
       }, [_vm._v(_vm._s(it))])
     }))])])])
-  }), _vm._v(" "), _c('div', {
-    staticClass: "mint-loadmore-bottom",
-    slot: "bottom"
-  }, [_c('span', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.topStatus !== 'loading'),
-      expression: "topStatus !== 'loading'"
-    }],
-    class: {
-      'rotate': _vm.topStatus === 'drop'
-    }
-  }, [_vm._v("加载更多")])])], 2)], 1)
+  })], 2)], 1)
 },staticRenderFns: []}
 
 /***/ }),
@@ -1457,4 +1454,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[18]);
-//# sourceMappingURL=app.7b15509b09fafe504c8d.js.map
+//# sourceMappingURL=app.156fdaab975b0e4d1b8c.js.map
